@@ -12,9 +12,13 @@
 
 + (NSURL *)URLForQuery:(NSString *)query
 {
-    query = [NSString stringWithFormat:@"%@&format=json&nojsoncallback=1&api_key=%@", query, FlickrAPIKey];
+    query = [NSString
+             stringWithFormat:@"%@&format=json&nojsoncallback=1&api_key=%@",
+                                                        query, FlickrAPIKey];
+    
     NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
-    query = [query stringByAddingPercentEncodingWithAllowedCharacters:set];  //NSUTF8StringEncoding
+    
+    query = [query stringByAddingPercentEncodingWithAllowedCharacters:set];        //NSUTF8StringEncoding
     return [NSURL URLWithString:query];
 }
 

@@ -29,7 +29,8 @@
 // когда мы в активном режиме (n the foreground)
 #define FOREGROUND_FLICKR_FETCH_INTERVAL (20*60)
 
-// как долго мы будем ждать выборки из Flickr чтобы вернуться (return), когда мы в фоновом режиме (in the background)
+// как долго мы будем ждать выборки из Flickr чтобы вернуться (return),
+// когда мы в фоновом режиме (in the background)
 #define BACKGROUND_FLICKR_FETCH_TIMEOUT (10)
 
 #pragma mark - UIApplicationDelegate
@@ -51,7 +52,7 @@
          setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     // мы получаем managed object контекст, самостоятельно создавая его в категории PhotomaniaAppDelegate
-    // но в Домашней раьоте вы должны получить контекст из UIManagedDocument
+    // но в Домашней работе вы должны получить контекст из UIManagedDocument
     // ( то есть вам не нужно использовать этот метод createMainQueueManagedObjectContext,
     // или используйте этот подход)
     self.photoDatabaseContext = [self createMainQueueManagedObjectContext];
@@ -60,7 +61,7 @@
     [self startFlickrFetch];
     
     // это возвращаемое значение должно что-то делать с обработкой URLs из других приложений
-    // сейчас не беспокойьнсь об этом, просто возвращайте YES
+    // сейчас не беспокойтесь об этом, просто возвращайте YES
     return YES;
 }
 
@@ -69,7 +70,7 @@
 // у системы очень много разумных причин когда это сделать, но для нас это абсолютно непрозрачно
 
 - (void)application:(UIApplication *)application
-performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+    performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     // на лекции мы положились на background flickrDownloadSession,
     // чтобы выполнить выборку путем вызова[self startFlickrFetch]
@@ -127,7 +128,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     // результаты которого теперь доступны
     // поэтому мы припрячем этот completionHandler в специальном свойстве до тех пор,
     // пока мы не будем готовы его вызвать
-    // (смотри flickrDownloadTasksMightBeComplete, в котором он действительно выывается)
+    // (смотри flickrDownloadTasksMightBeComplete, в котором он действительно вызывается)
     self.flickrDownloadBackgroundURLSessionCompletionHandler = completionHandler;
 }
 
@@ -197,7 +198,6 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 // getter для свойства flickrDownloadSession
-
 // эту NSURLSession мы будем использовать для выборки Flickr данных в background
 - (NSURLSession *)flickrDownloadSession
 {
@@ -222,8 +222,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     }
     return _flickrDownloadSession;
 }
-// стандартный код для "получаем информацию о фотографиях с Flickr URL"
 
+// стандартный код для "получаем информацию о фотографиях с Flickr URL"
 - (NSArray *)flickrPhotosAtURL:(NSURL *)url
 {
     NSDictionary *flickrPropertyList;
@@ -307,7 +307,6 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 }
 
 // этот "может быть" на случай, если когда-то у нас будет много загрузок одновременно
-
 - (void)flickrDownloadTasksMightBeComplete
 {
     if (self.flickrDownloadBackgroundURLSessionCompletionHandler) {
@@ -324,7 +323,7 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
                 if (completionHandler) {
                     completionHandler();
                 }
-            } // иначе другие загрузки продолжаются, так ято позволим им вызвать этот метод, когда они финишируют
+            } // иначе другие загрузки продолжаются, так что позволим им вызвать этот метод, когда они финишируют
         }];
     }
 }
